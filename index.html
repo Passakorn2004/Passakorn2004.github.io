@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Men — 3D Portfolio</title>
+
+  <meta
+    name="description"
+    content="3D Portfolio of Passakorn Sriampornkrajang — Men"
+  />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Prompt:wght@300;400;500;600&display=swap');
+
+    :root {
+      --blue: #00aaff;
+      --blue-light: #6ee7ff;
+      --blue-dark: #004dff;
+      --bg: #02050c;
+      --text: #eaf8ff;
+      --muted: #8295aa;
+      --glass: rgba(7, 18, 35, 0.58);
+      --border: rgba(65, 190, 255, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Prompt", sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* --------------------------------
+       BACKGROUND
+    -------------------------------- */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -3;
+
+      background:
+        radial-gradient(
+          circle at 50% 40%,
+          rgba(0, 136, 255, 0.12),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 10% 90%,
+          rgba(0, 64, 255, 0.08),
+          transparent 30%
+        ),
+        #02050c;
+    }
+
+    #space {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
+    /* --------------------------------
+       NAVBAR
+    -------------------------------- */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+
+      height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 6vw;
+
+      z-index: 100;
+
+      background: rgba(2, 5, 12, 0.45);
+      backdrop-filter: blur(14px);
+
+      border-bottom: 1px solid rgba(0, 170, 255, 0.1);
+    }
+
+    .logo {
+      font-family: "Orbitron", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: white;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 34px;
+    }
+
+    nav a {
+      color: #9eb0c5;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--blue-light);
+      text-shadow: 0 0 15px var(--blue);
+    }
+
+    /* --------------------------------
+       SECTIONS
+    -------------------------------- */
+
+    section {
+      min-height: 100vh;
+      position: relative;
+      padding: 120px 8vw;
+    }
+
+    /* --------------------------------
+       HERO
+    -------------------------------- */
+
+    #home {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+
+      width: 55%;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      color: var(--blue-light);
+      font-family: "Orbitron", sans-serif;
+      font-size: 12px;
+      letter-spacing: 4px;
+      margin-bottom: 22px;
+
+      text-shadow: 0 0 20px rgba(0, 170, 255, 0.7);
+    }
+
+    .hero-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(45px, 7vw, 100px);
+      line-height: 0.95;
+      letter-spacing: -3px;
+
+      background: linear-gradient(
+        120deg,
+        white,
+        #d5f7ff 35%,
+        #23bfff 70%,
+        #0055ff
+      );
+
+      -webkit-background-clip: text;
+      color: transparent;
+
+      text-shadow: 0 0 50px rgba(0, 153, 255, 0.15);
+    }
+
+    .nickname {
+      color: var(--blue);
+      font-family: "Orbitron", sans-serif;
+      font-size: 18px;
+      margin-top: 14px;
+      letter-spacing: 5px;
+    }
+
+    .hero-description {
+      margin-top: 28px;
+      max-width: 550px;
+
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      margin-top: 35px;
+      pointer-events: auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-width: 150px;
+      height: 48px;
+
+      border: 1px solid rgba(0, 181, 255, 0.5);
+      border-radius: 4px;
+
+      text-decoration: none;
+      color: white;
+
+      font-family: "Orbitron", sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+
+      transition: 0.3s;
+
+      background: rgba(0, 100, 255, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(
+        135deg,
+        #008cff,
+        #0047ff
+      );
+
+      border-color: transparent;
+      box-shadow:
+        0 0 30px rgba(0, 115, 255, 0.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 0 35px rgba(0, 166, 255, 0.4);
+    }
+
+    /* --------------------------------
+       3D CANVAS
+    -------------------------------- */
+
+    #three-container {
+      position: absolute;
+      inset: 0;
+
+      z-index: 1;
+
+      pointer-events: auto;
+    }
+
+    #three-container canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .model-label {
+      position: absolute;
+      right: 6vw;
+      bottom: 70px;
+
+      z-index: 6;
+
+      color: rgba(140, 220, 255, 0.7);
+
+      font-family: "Orbitron", sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+
+      writing-mode: vertical-rl;
+
+      pointer-events: none;
+    }
+
+    /* --------------------------------
+       ABOUT
+    -------------------------------- */
+
+    #about {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-wrapper {
+      width: min(1050px, 100%);
+
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .section-number {
+      font-family: "Orbitron", sans-serif;
+      color: var(--blue);
+      font-size: 12px;
+      letter-spacing: 4px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(35px, 5vw, 65px);
+      line-height: 1;
+
+      margin-bottom: 25px;
+    }
+
+    .about-text {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 15px;
+      font-weight: 300;
+    }
+
+    .info-card {
+      position: relative;
+
+      padding: 35px;
+
+      background: var(--glass);
+      border: 1px solid var(--border);
+
+      backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 0 60px rgba(0, 100, 255, 0.06);
+
+      overflow: hidden;
+    }
+
+    .info-card::before {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      width: 2px;
+      height: 100%;
+
+      background: linear-gradient(
+        transparent,
+        var(--blue),
+        transparent
+      );
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      padding: 17px 0;
+
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      color: #62758b;
+      font-family: "Orbitron", sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .info-value {
+      color: white;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    /* --------------------------------
+       PROJECT
+    -------------------------------- */
+
+    #projects {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-wrapper {
+      width: min(1100px, 100%);
+    }
+
+    .project-header {
+      margin-bottom: 40px;
+    }
+
+    .project-card {
+      min-height: 360px;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      border: 1px solid var(--border);
+      background: rgba(4, 12, 24, 0.7);
+
+      backdrop-filter: blur(20px);
+    }
+
+    .project-visual {
+      position: relative;
+      min-height: 360px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(0, 144, 255, 0.22),
+          transparent 45%
+        ),
+        #020712;
+    }
+
+    .project-orb {
+      width: 180px;
+      height: 180px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 45% 40%,
+          #000 0%,
+          #000 28%,
+          #005eff 35%,
+          #00c8ff 48%,
+          #0048ff 65%,
+          transparent 70%
+        );
+
+      box-shadow:
+        0 0 25px #008cff,
+        0 0 70px rgba(0, 119, 255, 0.8),
+        0 0 150px rgba(0, 65, 255, 0.4);
+
+      animation: pulseOrb 4s ease-in-out infinite;
+    }
+
+    @keyframes pulseOrb {
+      0%, 100% {
+        transform: scale(0.95);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .project-info {
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .project-tag {
+      color: var(--blue);
+      font-family: "Orbitron", sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    .project-name {
+      font-family: "Orbitron", sans-serif;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .project-description {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech {
+      padding: 6px 10px;
+
+      border: 1px solid rgba(0, 174, 255, 0.25);
+
+      color: #78dfff;
+
+      font-family: "Orbitron", sans-serif;
+      font-size: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* --------------------------------
+       FOOTER
+    -------------------------------- */
+
+    footer {
+      min-height: 180px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      border-top: 1px solid rgba(0, 170, 255, 0.1);
+
+      color: #526579;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    footer strong {
+      color: var(--blue);
+      font-family: "Orbitron", sans-serif;
+      margin-bottom: 8px;
+    }
+
+    /* --------------------------------
+       SCROLL INDICATOR
+    -------------------------------- */
+
+    .scroll-indicator {
+      position: absolute;
+      left: 8vw;
+      bottom: 35px;
+
+      z-index: 10;
+
+      color: #557187;
+
+      font-family: "Orbitron", sans-serif;
+      font-size: 8px;
+      letter-spacing: 3px;
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--blue);
+      box-shadow: 0 0 10px var(--blue);
+    }
+
+    /* --------------------------------
+       MOBILE
+    -------------------------------- */
+
+    @media (max-width: 800px) {
+
+      nav {
+        padding: 0 5vw;
+      }
+
+      nav ul {
+        gap: 14px;
+      }
+
+      nav a {
+        font-size: 9px;
+      }
+
+      .hero-content {
+        width: 90%;
+      }
+
+      .hero-title {
+        font-size: clamp(40px, 14vw, 70px);
+      }
+
+      .hero-description {
+        font-size: 13px;
+        max-width: 90%;
+      }
+
+      .about-wrapper {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+
+      .project-info {
+        padding: 30px;
+      }
+
+      .model-label {
+        display: none;
+      }
+
+      section {
+        padding-left: 6vw;
+        padding-right: 6vw;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      nav ul {
+        display: none;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        width: 180px;
+      }
+
+      .btn {
+        width: 180px;
+      }
+
+      .info-card {
+        padding: 25px;
+      }
+
+      .info-row {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .info-value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==========================================
+       3D BACKGROUND
+  =========================================== -->
+
+  <div id="space"></div>
+
+  <!-- ==========================================
+       NAVIGATION
+  =========================================== -->
+
+  <nav>
+    <div class="logo">
+      MEN<span>.</span>
+    </div>
+
+    <ul>
+      <li><a href="#home">HOME</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#projects">PROJECTS</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==========================================
+       HERO
+  =========================================== -->
+
+  <section id="home">
+
+    <div id="three-container"></div>
+
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        3D PORTFOLIO / 2026
+      </div>
+
+      <h1 class="hero-title">
+        PASSAKORN
+      </h1>
+
+      <div class="nickname">
+        MEN
+      </div>
+
+      <p class="hero-description">
+        Welcome to my digital universe.
+        I'm Passakorn Sriampornkrajang,
+        a 22-year-old creator exploring
+        the intersection between technology,
+        creativity and immersive 3D experiences.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#about" class="btn primary">
+          EXPLORE
+        </a>
+
+        <a href="#projects" class="btn">
+          3D PROJECT
+        </a>
+      </div>
+
+    </div>
+
+    <div class="model-label">
+      INTERACTIVE 3D / BLACK HOLE
+    </div>
+
+    <div class="scroll-indicator">
+      <span class="scroll-line"></span>
+      SCROLL TO EXPLORE
+    </div>
+
+  </section>
+
+  <!-- ==========================================
+       ABOUT
+  =========================================== -->
+
+  <section id="about">
+
+    <div class="about-wrapper">
+
+      <div>
+
+        <div class="section-number">
+          01 / ABOUT
+        </div>
+
+        <h2 class="section-title">
+          WHO<br />
+          AM I?
+        </h2>
+
+        <p class="about-text">
+          ผมชื่อ Passakorn Sriampornkrajang
+          หรือชื่อเล่นว่า Men สนใจด้านเทคโนโลยี
+          การออกแบบ และการสร้างประสบการณ์ดิจิทัล
+          โดยเฉพาะงานที่ผสมผสานระหว่าง Code,
+          3D และ Visual Design
+        </p>
+
+      </div>
+
+      <div class="info-card">
+
+        <div class="info-row">
+          <span class="info-label">NAME</span>
+          <span class="info-value">
+            Passakorn Sriampornkrajang
+          </span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">NICKNAME</span>
+          <span class="info-value">
+            Men
+          </span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">AGE</span>
+          <span class="info-value">
+            22
+          </span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">BIRTHDAY</span>
+          <span class="info-value">
+            06 / 08 / 2004
+          </span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">INTEREST</span>
+          <span class="info-value">
+            3D / Web / Creative Technology
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==========================================
+       PROJECT
+  =========================================== -->
+
+  <section id="projects">
+
+    <div class="project-wrapper">
+
+      <div class="project-header">
+
+        <div class="section-number">
+          02 / FEATURED PROJECT
+        </div>
+
+        <h2 class="section-title">
+          BLACK HOLE
+        </h2>
+
+      </div>
+
+      <div class="project-card">
+
+        <div class="project-visual">
+          <div class="project-orb"></div>
+        </div>
+
+        <div class="project-info">
+
+          <div class="project-tag">
+            3D EXPERIMENT
+          </div>
+
+          <h3 class="project-name">
+            BLUE SINGULARITY
+          </h3>
+
+          <p class="project-description">
+            Interactive 3D visualization of a blue
+            black hole featuring a glowing accretion
+            disk, event horizon and deep-space
+            environment. The scene is rendered
+            directly in the browser using Three.js
+            and WebGL.
+          </p>
+
+          <div class="tech-list">
+            <span class="tech">THREE.JS</span>
+            <span class="tech">WEBGL</span>
+            <span class="tech">GLSL</span>
+            <span class="tech">JAVASCRIPT</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==========================================
+       FOOTER
+  =========================================== -->
+
+  <footer>
+
+    <strong>MEN / PASSAKORN</strong>
+
+    <span>
+      3D PORTFOLIO — DIGITAL UNIVERSE
+    </span>
+
+  </footer>
+
+
+  <!-- ==========================================
+       THREE.JS
+       Public CDN
+  =========================================== -->
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+  }
+  </script>
+
+
+  <script type="module">
+
+    import * as THREE from "three";
+
+    import {
+      OrbitControls
+    } from "three/addons/controls/OrbitControls.js";
+
+
+    /* ==========================================
+       BASIC SETUP
+    =========================================== */
+
+    const container =
+      document.getElementById("three-container");
+
+    const scene = new THREE.Scene();
+
+    scene.background = new THREE.Color(0x02050c);
+
+
+    const camera =
+      new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        100
+      );
+
+    camera.position.set(0, 1.2, 8);
+
+
+    const renderer =
+      new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+      });
+
+    renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio, 2)
+    );
+
+    renderer.setSize(
+      window.innerWidth,
+      window.innerHeight
+    );
+
+    renderer.outputColorSpace =
+      THREE.SRGBColorSpace;
+
+    container.appendChild(renderer.domElement);
+
+
+    /* ==========================================
+       CAMERA CONTROLS
+    =========================================== */
+
+    const controls =
+      new OrbitControls(
+        camera,
+        renderer.domElement
+      );
+
+    controls.enableDamping = true;
+
+    controls.enablePan = false;
+
+    controls.minDistance = 5;
+    controls.maxDistance = 12;
+
+    controls.target.set(1.2, 0, 0);
+
+    controls.autoRotate = false;
+
+    controls.autoRotateSpeed = 0.4;
+
+
+    /* ==========================================
+       LIGHT
+    =========================================== */
+
+    const ambient =
+      new THREE.AmbientLight(
+        0x124a88,
+        1
+      );
+
+    scene.add(ambient);
+
+
+    const blueLight =
+      new THREE.PointLight(
+        0x008cff,
+        18,
+        20
+      );
+
+    blueLight.position.set(
+      2,
+      2,
+      3
+    );
+
+    scene.add(blueLight);
+
+
+    /* ==========================================
+       BLACK HOLE GROUP
+    =========================================== */
+
+    const blackHole =
+      new THREE.Group();
+
+    blackHole.position.x = 1.8;
+
+    scene.add(blackHole);
+
+
+    /* ==========================================
+       EVENT HORIZON
+    =========================================== */
+
+    const horizonGeometry =
+      new THREE.SphereGeometry(
+        1.15,
+        64,
+        64
+      );
+
+    const horizonMaterial =
+      new THREE.MeshBasicMaterial({
+        color: 0x000000
+      });
+
+    const horizon =
+      new THREE.Mesh(
+        horizonGeometry,
+        horizonMaterial
+      );
+
+    blackHole.add(horizon);
+
+
+    /* ==========================================
+       PHOTON RING
+    =========================================== */
+
+    const ringGeometry =
+      new THREE.TorusGeometry(
+        1.22,
+        0.055,
+        16,
+        160
+      );
+
+    const ringMaterial =
+      new THREE.MeshBasicMaterial({
+        color: 0x00aaff,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending
+      });
+
+    const photonRing =
+      new THREE.Mesh(
+        ringGeometry,
+        ringMaterial
+      );
+
+    photonRing.rotation.x =
+      Math.PI / 2;
+
+    blackHole.add(photonRing);
+
+
+    /* ==========================================
+       ACCRETION DISK
+    =========================================== */
+
+    const diskGeometry =
+      new THREE.RingGeometry(
+        1.3,
+        3.1,
+        160
+      );
+
+    const diskMaterial =
+      new THREE.ShaderMaterial({
+
+        transparent: true,
+
+        side: THREE.DoubleSide,
+
+        blending:
+          THREE.AdditiveBlending,
+
+        depthWrite: false,
+
+        uniforms: {
+          uTime: {
+            value: 0
+          }
+        },
+
+        vertexShader: `
+
+          varying vec2 vUv;
+
+          void main() {
+
+            vUv = uv;
+
+            vec3 pos = position;
+
+            float wave =
+              sin(pos.x * 7.0 + pos.y * 5.0)
+              * 0.035;
+
+            pos.z += wave;
+
+            gl_Position =
+              projectionMatrix *
+              modelViewMatrix *
+              vec4(pos, 1.0);
+          }
+
+        `,
+
+        fragmentShader: `
+
+          uniform float uTime;
+
+          varying vec2 vUv;
+
+          void main() {
+
+            vec2 uv = vUv - 0.5;
+
+            float radius =
+              length(uv) * 2.0;
+
+            float angle =
+              atan(
+                uv.y,
+                uv.x
+              );
+
+            angle +=
+              uTime * 0.9;
+
+            float spiral =
+              sin(
+                angle * 7.0 -
+                radius * 18.0
+              );
+
+            float waves =
+              smoothstep(
+                -0.8,
+                0.8,
+                spiral
+              );
+
+            float edge =
+              smoothstep(
+                1.0,
+                0.35,
+                radius
+              );
+
+            float innerFade =
+              smoothstep(
+                0.08,
+                0.35,
+                radius
+              );
+
+            vec3 darkBlue =
+              vec3(
+                0.0,
+                0.08,
+                0.5
+              );
+
+            vec3 cyan =
+              vec3(
+                0.0,
+                0.75,
+                1.0
+              );
+
+            vec3 electricBlue =
+              vec3(
+                0.05,
+                0.2,
+                1.0
+              );
+
+            vec3 color =
+              mix(
+                darkBlue,
+                cyan,
+                waves
+              );
+
+            color =
+              mix(
+                color,
+                electricBlue,
+                radius
+              );
+
+            float alpha =
+              edge *
+              innerFade *
+              (0.35 + waves * 0.8);
+
+            gl_FragColor =
+              vec4(
+                color,
+                alpha
+              );
+          }
+
+        `
+      });
+
+
+    const disk =
+      new THREE.Mesh(
+        diskGeometry,
+        diskMaterial
+      );
+
+    disk.rotation.x =
+      Math.PI / 2;
+
+    blackHole.add(disk);
+
+
+    /* ==========================================
+       OUTER GLOW
+    =========================================== */
+
+    const glowGeometry =
+      new THREE.SphereGeometry(
+        1.4,
+        64,
+        64
+      );
+
+    const glowMaterial =
+      new THREE.MeshBasicMaterial({
+        color: 0x0077ff,
+        transparent: true,
+        opacity: 0.08,
+        side: THREE.BackSide,
+        blending: THREE.AdditiveBlending
+      });
+
+    const glow =
+      new THREE.Mesh(
+        glowGeometry,
+        glowMaterial
+      );
+
+    blackHole.add(glow);
+
+
+    /* ==========================================
+       STAR FIELD
+    =========================================== */
+
+    const starCount = 2500;
+
+    const starPositions =
+      new Float32Array(
+        starCount * 3
+      );
+
+    const starColors =
+      new Float32Array(
+        starCount * 3
+      );
+
+
+    for (
+      let i = 0;
+      i < starCount;
+      i++
+    ) {
+
+      const radius =
+        15 + Math.random() * 35;
+
+      const theta =
+        Math.random() *
+        Math.PI * 2;
+
+      const phi =
+        Math.acos(
+          2 * Math.random() - 1
+        );
+
+      const x =
+        radius *
+        Math.sin(phi) *
+        Math.cos(theta);
+
+      const y =
+        radius *
+        Math.sin(phi) *
+        Math.sin(theta);
+
+      const z =
+        radius *
+        Math.cos(phi);
+
+
+      starPositions[
+        i * 3
+      ] = x;
+
+      starPositions[
+        i * 3 + 1
+      ] = y;
+
+      starPositions[
+        i * 3 + 2
+      ] = z;
+
+
+      const blue =
+        0.5 +
+        Math.random() * 0.5;
+
+      starColors[
+        i * 3
+      ] = 0.35;
+
+      starColors[
+        i * 3 + 1
+      ] = 0.7;
+
+      starColors[
+        i * 3 + 2
+      ] = blue;
+    }
+
+
+    const starsGeometry =
+      new THREE.BufferGeometry();
+
+    starsGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(
+        starPositions,
+        3
+      )
+    );
+
+    starsGeometry.setAttribute(
+      "color",
+      new THREE.BufferAttribute(
+        starColors,
+        3
+      )
+    );
+
+
+    const starsMaterial =
+      new THREE.PointsMaterial({
+
+        size: 0.035,
+
+        vertexColors: true,
+
+        transparent: true,
+
+        opacity: 0.8,
+
+        sizeAttenuation: true,
+
+        blending:
+          THREE.AdditiveBlending
+      });
+
+
+    const stars =
+      new THREE.Points(
+        starsGeometry,
+        starsMaterial
+      );
+
+    scene.add(stars);
+
+
+    /* ==========================================
+       PARTICLES AROUND BLACK HOLE
+    =========================================== */
+
+    const particleCount = 900;
+
+    const particlePositions =
+      new Float32Array(
+        particleCount * 3
+      );
+
+    const particleColors =
+      new Float32Array(
+        particleCount * 3
+      );
+
+
+    for (
+      let i = 0;
+      i < particleCount;
+      i++
+    ) {
+
+      const angle =
+        Math.random() *
+        Math.PI *
+        2;
+
+      const radius =
+        1.4 +
+        Math.random() *
+        2.2;
+
+      const x =
+        Math.cos(angle) *
+        radius;
+
+      const y =
+        (Math.random() - 0.5) *
+        0.18;
+
+      const z =
+        Math.sin(angle) *
+        radius;
+
+
+      particlePositions[
+        i * 3
+      ] = x;
+
+      particlePositions[
+        i * 3 + 1
+      ] = y;
+
+      particlePositions[
+        i * 3 + 2
+      ] = z;
+
+
+      particleColors[
+        i * 3
+      ] = 0.0;
+
+      particleColors[
+        i * 3 + 1
+      ] = 0.4 +
+        Math.random() * 0.6;
+
+      particleColors[
+        i * 3 + 2
+      ] = 1.0;
+    }
+
+
+    const particleGeometry =
+      new THREE.BufferGeometry();
+
+    particleGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(
+        particlePositions,
+        3
+      )
+    );
+
+    particleGeometry.setAttribute(
+      "color",
+      new THREE.BufferAttribute(
+        particleColors,
+        3
+      )
+    );
+
+
+    const particleMaterial =
+      new THREE.PointsMaterial({
+
+        size: 0.025,
+
+        vertexColors: true,
+
+        transparent: true,
+
+        opacity: 0.85,
+
+        blending:
+          THREE.AdditiveBlending
+      });
+
+
+    const particles =
+      new THREE.Points(
+        particleGeometry,
+        particleMaterial
+      );
+
+    blackHole.add(particles);
+
+
+    /* ==========================================
+       MOUSE PARALLAX
+    =========================================== */
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    let targetX = 0;
+    let targetY = 0;
+
+
+    window.addEventListener(
+      "mousemove",
+      (event) => {
+
+        mouseX =
+          (event.clientX /
+            window.innerWidth -
+            0.5) *
+          2;
+
+        mouseY =
+          (event.clientY /
+            window.innerHeight -
+            0.5) *
+          2;
+      }
+    );
+
+
+    /* ==========================================
+       RESIZE
+    =========================================== */
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        camera.aspect =
+          window.innerWidth /
+          window.innerHeight;
+
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(
+          window.innerWidth,
+          window.innerHeight
+        );
+
+      }
+    );
+
+
+    /* ==========================================
+       ANIMATION
+    ========================================== */
+
+    const clock =
+      new THREE.Clock();
+
+
+    function animate() {
+
+      requestAnimationFrame(
+        animate
+      );
+
+
+      const elapsed =
+        clock.getElapsedTime();
+
+
+      /* Accretion disk */
+
+      diskMaterial
+        .uniforms
+        .uTime
+        .value =
+        elapsed;
+
+
+      /* Rotation */
+
+      photonRing.rotation.z =
+        elapsed * 0.22;
+
+      particles.rotation.y =
+        elapsed * 0.35;
+
+      stars.rotation.y =
+        elapsed * 0.015;
+
+
+      /* Smooth mouse camera */
+
+      targetX +=
+        (mouseX - targetX) *
+        0.025;
+
+      targetY +=
+        (mouseY - targetY) *
+        0.025;
+
+
+      camera.position.x =
+        1.8 +
+        targetX * 0.7;
+
+      camera.position.y =
+        1.2 -
+        targetY * 0.5;
+
+
+      camera.lookAt(
+        blackHole.position
+      );
+
+
+      controls.update();
+
+      renderer.render(
+        scene,
+        camera
+      );
+    }
+
+
+    animate();
+
+  </script>
+
+</body>
+</html>
