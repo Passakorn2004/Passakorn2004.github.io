@@ -21,8 +21,6 @@
       const THREE = AFRAME.THREE;
       // เปลี่ยน URL นี้เป็นภาพ texture ของคุณ
       const texture = new THREE.TextureLoader().load('https://Passakorn2004.github.io/Black.png');
-      //const texture = new THREE.TextureLoader().load('https://sibsansuk.github.io/courses/3dmodel/canonical_face_model_uv_visualization-2.png');
-      texture.colorSpace = THREE.SRGBColorSpace;
 
       // ใช้ face mesh ของ MindAR แล้วเปลี่ยนจากวัสดุบังหน้าเป็น texture
       const mesh = document.querySelector('#face').getObject3D('mesh');
