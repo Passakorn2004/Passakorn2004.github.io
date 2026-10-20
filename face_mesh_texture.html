@@ -19,10 +19,8 @@
   <script>
     document.querySelector('a-scene').addEventListener('arReady', () => {
       const THREE = AFRAME.THREE;
-      // เปลี่ยน URL นี้เป็นภาพ texture ของคุณ
       const texture = new THREE.TextureLoader().load('https://Passakorn2004.github.io/Black.png');
 
-      // ใช้ face mesh ของ MindAR แล้วเปลี่ยนจากวัสดุบังหน้าเป็น texture
       const mesh = document.querySelector('#face').getObject3D('mesh');
       mesh.material.dispose();
       mesh.material = new THREE.MeshBasicMaterial({
