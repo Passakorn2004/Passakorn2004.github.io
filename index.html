@@ -4,85 +4,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AR - Blue Black Hole | Passakorn</title>
 
-  <title>Passakorn | Blue Black Hole AR</title>
-
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+
+  <!-- AR.js: Image Tracking (NFT) -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
+  <!-- Animation support for GLB -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html, body {
       margin: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #02030b;
       font-family: Arial, sans-serif;
-    }
-
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px 12px;
-      text-align: center;
+      background: #050711;
       color: white;
-      z-index: 5;
-      pointer-events: none;
-      background: linear-gradient(
-        to bottom, rgba(1,4,20,.8), transparent
-      );
-    }
-
-    .header h1 {
-      margin: 0;
-      font-size: 23px;
-      letter-spacing: 4px;
-      color: #55caff;
-      text-shadow: 0 0 15px #007bff;
-    }
-
-    .header p {
-      margin: 8px 0 0;
-      font-size: 12px;
-      letter-spacing: 3px;
-      color: #d8e9ff;
-    }
-
-    .status {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: max-content;
-      max-width: 90%;
-      padding: 12px 20px;
-      color: #dff6ff;
-      background: rgba(3, 12, 35, .88);
-      border: 1px solid #168bff;
-      border-radius: 30px;
-      box-shadow: 0 0 20px #005eff55;
-      font-size: 13px;
-      text-align: center;
-      z-index: 10;
-      pointer-events: none;
     }
 
     .loader {
       position: fixed;
       inset: 0;
-      z-index: 20;
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #02030b;
-      color: #62caff;
+      background: #050711;
       text-align: center;
-      transition: opacity .6s;
+      padding: 24px;
+      transition: opacity .5s ease;
     }
 
     .loader.hidden {
@@ -90,19 +49,99 @@
       pointer-events: none;
     }
 
-    .loader .orb {
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 18px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #000 30%, #087dff 55%, #000 72%);
-      box-shadow: 0 0 30px #007bff;
-      animation: pulse 1.5s infinite alternate;
+    .loader-content {
+      max-width: 320px;
     }
 
-    @keyframes pulse {
-      from { transform: scale(.8) rotate(0deg); }
-      to { transform: scale(1.15) rotate(180deg); }
+    .loader h2 {
+      color: #69d9ff;
+      letter-spacing: 3px;
+    }
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      margin: 20px auto;
+      border: 3px solid #24334f;
+      border-top-color: #52dfff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .hud {
+      position: fixed;
+      top: max(18px, env(safe-area-inset-top));
+      left: 16px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .brand {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #75ddff;
+      text-transform: uppercase;
+    }
+
+    .hud h1 {
+      font-size: clamp(20px, 5vw, 30px);
+      margin: 7px 0;
+      text-shadow: 0 0 18px #147bff;
+    }
+
+    .status {
+      font-size: 12px;
+      color: #c1d7f8;
+    }
+
+    .about {
+      position: fixed;
+      left: 14px;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 5;
+      width: min(280px, calc(100% - 28px));
+      padding: 15px 17px;
+      border: 1px solid rgba(96, 203, 255, .55);
+      border-radius: 15px;
+      background: rgba(5, 12, 32, .82);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(25, 126, 255, .16);
+      pointer-events: none;
+    }
+
+    .about h2 {
+      margin: 0 0 10px;
+      color: #69d9ff;
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+
+    .about p {
+      margin: 6px 0;
+      font-size: 13px;
+      color: #e3edff;
+    }
+
+    .about strong {
+      color: #78caff;
+      display: inline-block;
+      width: 82px;
+    }
+
+    .hint {
+      position: fixed;
+      right: 12px;
+      bottom: max(22px, env(safe-area-inset-bottom));
+      z-index: 5;
+      max-width: 145px;
+      text-align: right;
+      font-size: 11px;
+      color: #b8cbe8;
+      pointer-events: none;
     }
 
     a-scene {
@@ -115,33 +154,44 @@
 <body>
 
   <div class="loader" id="loader">
-    <div>
-      <div class="orb"></div>
-      <div>INITIALIZING COSMIC AR...</div>
-      <p style="font-size:12px;color:#9bb9dc">
-        อนุญาตให้เข้าถึงกล้องเพื่อเริ่มใช้งาน
+    <div class="loader-content">
+      <div class="spinner"></div>
+      <h2>BLUE BLACK HOLE</h2>
+      <p id="loadMessage">กำลังเตรียมระบบ AR...</p>
+      <p style="font-size:12px;color:#9eb3d4">
+        อนุญาตให้เว็บไซต์ใช้กล้อง แล้วส่องไปที่ Marker
       </p>
     </div>
   </div>
 
-  <div class="header">
-    <h1>PASSAKORN</h1>
-    <p>BLUE BLACK HOLE · AR EXPERIENCE</p>
-  </div>
+  <header class="hud">
+    <div class="brand">Augmented Reality</div>
+    <h1>Blue Black Hole</h1>
+    <div class="status" id="trackingStatus">
+      ◉ รอการตรวจจับ Marker
+    </div>
+  </header>
 
-  <div class="status" id="status">
-    กำลังเตรียมระบบ AR...
+  <section class="about">
+    <h2>ABOUT ME</h2>
+    <p><strong>Name:</strong> Passakorn</p>
+    <p><strong>Age:</strong> 22</p>
+    <p><strong>Birthday:</strong> 06/08/2004</p>
+  </section>
+
+  <div class="hint">
+    POINT CAMERA AT MARKER<br>
+    <span style="color:#69d9ff">SCAN TO EXPLORE</span>
   </div>
 
   <a-scene
     embedded
     vr-mode-ui="enabled: false"
-    renderer="antialias: true; alpha: true; colorManagement: true; logarithmicDepthBuffer: true"
-    loading-screen="enabled: false"
-    arjs="trackingMethod: best; sourceType: webcam; sourceWidth: 1280; sourceHeight: 960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;"
+    renderer="antialias: true; alpha: true; logarithmicDepthBuffer: true"
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
   >
 
-    <a-assets timeout="30000">
+    <a-assets timeout="60000">
       <a-asset-item
         id="blackHoleModel"
         src="https://sibsansuk.github.io/epona.glb">
@@ -149,127 +199,104 @@
     </a-assets>
 
     <!--
-      NFT image tracking:
-      ต้องใช้ชุดไฟล์ descriptor .fset, .fset3, .iset
-      ที่สร้างจาก tracker.png ก่อน
+      IMPORTANT:
+      สร้าง NFT descriptors จาก tracker.png ก่อน
+      และอัปโหลดไฟล์ tracker.fset, tracker.fset3,
+      tracker.iset ไปยังโฟลเดอร์ /markers/
+
+      URL ต้องเป็น path ก่อนนามสกุลไฟล์
     -->
     <a-nft
-      id="targetMarker"
+      id="imageMarker"
       type="nft"
-      url="https://aitutorialcourse.github.io/tracker"
+      url="https://YOUR-DOMAIN.github.io/markers/tracker"
       smooth="true"
       smoothCount="10"
       smoothTolerance="0.01"
       smoothThreshold="5"
-      emitevents="true"
-      size="100"
-      >
+    >
 
-      <!-- โมเดล GLB -->
+      <!-- 3D Model with embedded GLB animations -->
       <a-entity
         id="model"
         gltf-model="#blackHoleModel"
         position="0 0 0"
         rotation="0 0 0"
-        scale="10 10 10"
-        animation-mixer="clip: *; loop: repeat"
+        scale="5 5 5"
+        animation-mixer="loop: repeat"
       >
-      </a-entity>
-
-      <!-- วงแหวนพลังงานสีน้ำเงิน -->
-      <a-entity id="energyEffects" position="0 0 0">
-
-        <a-torus
-          position="0 0.1 0"
-          rotation="90 0 0"
-          radius="1.15"
-          radius-tubular="0.018"
-          material="color: #0088ff; emissive: #0066ff; emissiveIntensity: 2; transparent: true; opacity: 0.9"
-          animation="property: rotation; to: 90 360 0; dur: 5000; easing: linear; loop: true">
-        </a-torus>
-
-        <a-torus
-          position="0 0.15 0"
-          rotation="90 25 0"
-          radius="1.35"
-          radius-tubular="0.012"
-          material="color: #53dfff; emissive: #008cff; emissiveIntensity: 2; transparent: true; opacity: 0.7"
-          animation="property: rotation; to: 90 -335 0; dur: 7500; easing: linear; loop: true">
-        </a-torus>
-
-        <a-sphere
-          position="0 0.12 0"
-          radius="0.32"
-          material="shader: standard; color: #000000; emissive: #001a55; emissiveIntensity: 0.8; metalness: 0.9; roughness: 0.15"
-          animation="property: scale; to: 1.12 1.12 1.12; dur: 1800; dir: alternate; easing: easeInOutSine; loop: true">
-        </a-sphere>
-
-        <!-- แสงพลังงาน -->
-        <a-light
-          type="point"
-          color="#087dff"
-          intensity="1.8"
-          distance="5"
-          position="0 1 0">
-        </a-light>
-
-      </a-entity>
-
-      <!-- ชื่อเจ้าของผลงาน -->
-      <a-entity
-        position="0 2.0 0"
-        text="value: PASSAKORN; align: center; anchor: center; width: 5; color: #70dfff; shader: msdf"
-        animation="property: position; to: 0 2.15 0; dur: 1800; dir: alternate; easing: easeInOutSine; loop: true">
       </a-entity>
 
     </a-nft>
 
     <a-entity camera></a-entity>
-
   </a-scene>
 
   <script>
-    const loader = document.getElementById('loader');
-    const status = document.getElementById('status');
-    const marker = document.getElementById('targetMarker');
-    const model = document.getElementById('model');
+    const loader = document.getElementById("loader");
+    const loadMessage = document.getElementById("loadMessage");
+    const trackingStatus = document.getElementById("trackingStatus");
+    const marker = document.getElementById("imageMarker");
+    const model = document.getElementById("model");
+
+    let modelLoaded = false;
+    let markerVisible = false;
 
     function hideLoader() {
-      loader.classList.add('hidden');
+      loader.classList.add("hidden");
     }
 
-    // ซ่อนหน้าโหลดเมื่อระบบ AR พร้อม
-    document.querySelector('a-scene').addEventListener(
-      'loaded',
-      () => {
-        setTimeout(hideLoader, 1500);
-        status.textContent = 'ส่องกล้องไปที่ Marker เพื่อแสดงโมเดล 3D';
+    // ตรวจสอบว่าโมเดลโหลดสำเร็จหรือไม่
+    model.addEventListener("model-loaded", () => {
+      modelLoaded = true;
+      loadMessage.textContent = "โหลดโมเดล 3D สำเร็จ";
+
+      if (markerVisible) {
+        hideLoader();
       }
-    );
-
-    // เมื่อพบ Marker
-    marker.addEventListener('markerFound', () => {
-      status.textContent = '✦ BLACK HOLE ACTIVATED · PASSAKORN ✦';
     });
 
-    // เมื่อไม่พบ Marker
-    marker.addEventListener('markerLost', () => {
-      status.textContent = 'ส่องกล้องไปที่ Marker เพื่อแสดงโมเดล 3D';
+    model.addEventListener("model-error", (event) => {
+      loadMessage.textContent =
+        "โหลดโมเดลไม่สำเร็จ กรุณาตรวจสอบ URL และ CORS";
+      console.error("GLB model error:", event.detail);
     });
 
-    // แจ้งกรณีโมเดลโหลดไม่สำเร็จ
-    model.addEventListener('model-error', () => {
-      status.textContent = 'โหลดโมเดลไม่สำเร็จ กรุณาตรวจสอบ URL';
+    // เมื่อพบภาพ Marker
+    marker.addEventListener("markerFound", () => {
+      markerVisible = true;
+      trackingStatus.textContent = "◉ ตรวจพบ Marker แล้ว";
+
+      if (modelLoaded) {
+        hideLoader();
+      }
     });
 
-    model.addEventListener('model-loaded', () => {
-      console.log('3D model loaded successfully');
+    // เมื่อภาพ Marker หลุดจากกล้อง
+    marker.addEventListener("markerLost", () => {
+      markerVisible = false;
+      trackingStatus.textContent = "◉ รอการตรวจจับ Marker";
     });
 
-    // รองรับกรณีเริ่มกล้องไม่ได้
-    window.addEventListener('error', (event) => {
-      console.error('AR error:', event.message);
+    // รอให้ AR.js โหลด Image Descriptors
+    window.addEventListener("arjs-nft-loaded", () => {
+      loadMessage.textContent =
+        "พร้อมแล้ว กรุณาส่องกล้องไปที่ Marker";
     });
+
+    // แสดงข้อความผิดพลาดหากโหลด NFT descriptors ไม่สำเร็จ
+    window.addEventListener("error", (event) => {
+      console.error("AR error:", event.message);
+    });
+
+    // ซ่อนหน้าจอโหลดเมื่อโมเดลพร้อมและ Marker ถูกตรวจพบ
+    // หากยังไม่พบ Marker ให้หน้าจอโหลดค้างไว้เพื่อแจ้งสถานะ
+    setTimeout(() => {
+      if (!modelLoaded) {
+        loadMessage.textContent =
+          "กำลังโหลดโมเดล กรุณารอสักครู่...";
+      }
+    }, 8000);
   </script>
 
 </body>
