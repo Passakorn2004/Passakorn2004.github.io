@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>AR Epona</title>
+
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+
+  <!-- AR.js -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+  <!-- GLB Animation -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: sans-serif;
+    }
+
+    .info {
+      position: fixed;
+      top: 16px;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      text-align: center;
+      color: white;
+      pointer-events: none;
+      text-shadow: 0 2px 5px #000;
+    }
+
+    .info h3 {
+      margin: 0 0 8px;
+    }
+
+    .info p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    #status {
+      position: fixed;
+      bottom: 24px;
+      left: 12px;
+      right: 12px;
+      z-index: 10;
+      text-align: center;
+      color: white;
+      font-size: 14px;
+      text-shadow: 0 2px 5px #000;
+      pointer-events: none;
+    }
+
+    a-scene {
+      position: fixed;
+      inset: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="info">
+    <h3>AR Epona 3D</h3>
+    <p>ส่องกล้องไปที่ Marker เพื่อแสดงโมเดล</p>
+  </div>
+
+  <div id="status">กำลังโหลด AR...</div>
+
+  <a-scene
+    embedded
+    vr-mode-ui="enabled: false"
+    renderer="colorManagement: true; physicallyCorrectLights: true"
+    arjs="sourceType: webcam; debugUIEnabled: false;">
+
+    <a-assets timeout="30000">
+      <a-asset-item
+        id="eponaModel"
+        src="https://sibsansuk.github.io/epona.glb">
+      </a-asset-item>
+    </a-assets>
+
+    <!--
+      หมายเหตุ:
+      ต้องแปลง tracker.png เป็นไฟล์ .patt ก่อน
+      แล้วนำไฟล์ไปไว้บนเซิร์ฟเวอร์
+    -->
+    <a-marker
+      id="marker"
+      type="pattern"
+      url="./tracker.patt"
+      emitevents="true"
+      smooth="true"
+      smoothCount="5">
+
+      <a-entity
+        id="epona"
+        gltf-model="#eponaModel"
+        animation-mixer="loop: repeat"
+        position="0 0 0"
+        rotation="-90 0 0"
+        scale="0.5 0.5 0.5">
+      </a-entity>
+
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    const status = document.getElementById("status");
+    const marker = document.getElementById("marker");
+    const model = document.getElementById("epona");
+
+    let modelReady = false;
+    let markerVisible = false;
+
+    model.addEventListener("model-loaded", () => {
+      modelReady = true;
+      updateStatus();
+    });
+
+    model.addEventListener("model-error", (event) => {
+      console.error("GLB loading error:", event);
+      status.textContent =
+        "โหลดโมเดลไม่สำเร็จ กรุณาตรวจสอบ URL และ CORS";
+    });
+
+    marker.addEventListener("markerFound", () => {
+      markerVisible = true;
+      updateStatus();
+    });
+
+    marker.addEventListener("markerLost", () => {
+      markerVisible = false;
+      updateStatus();
+    });
+
+    function updateStatus() {
+      if (!modelReady) {
+        status.textContent = "กำลังโหลดโมเดล 3D...";
+      } else if (markerVisible) {
+        status.textContent = "พบ Marker — กำลังแสดงโมเดล 3D";
+      } else {
+        status.textContent = "พร้อมใช้งาน — ส่องกล้องไปที่ Marker";
+      }
+    }
+
+    document.querySelector("a-scene")
+      .addEventListener("loaded", () => {
+        status.textContent = "กำลังเปิดกล้อง...";
+      });
+  </script>
+</body>
+</html>
